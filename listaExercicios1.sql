@@ -53,4 +53,10 @@ GROUP BY produto
 HAVING SUM(receita) > 10000;
 }
 
-
+Questão 10 {
+SELECT autores.nome
+FROM autores
+JOIN livros ON autores.id = livros.autor_id
+GROUP BY autores.nome
+HAVING COUNT(*) > 2;
+}
