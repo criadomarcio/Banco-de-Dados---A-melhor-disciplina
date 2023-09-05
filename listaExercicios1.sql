@@ -34,4 +34,10 @@ JOIN autores ON livros.autor_id = autores.id
 GROUP BY autores.nome;
 }
 
+Questão 7{
+SELECT curso, COUNT(*) as num_alunos
+FROM alunos
+GROUP BY curso;
+}
+
 
