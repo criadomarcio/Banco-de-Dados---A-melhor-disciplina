@@ -20,3 +20,11 @@ SELECT nome
 FROM alunos
 WHERE curso = 'Engenharia de Software';
 }
+
+Questão 5 {
+SELECT produto, SUM(receita) as receita_total
+FROM vendas
+GROUP BY produto;
+}
+
+
