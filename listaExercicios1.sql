@@ -40,4 +40,10 @@ FROM alunos
 GROUP BY curso;
 }
 
+Questão 8{
+SELECT produto, AVG(receita) as media_receita
+FROM vendas
+GROUP BY produto;
+}
+
 
