@@ -60,3 +60,9 @@ JOIN livros ON autores.id = livros.autor_id
 GROUP BY autores.nome
 HAVING COUNT(*) > 2;
 }
+
+Questão 11 {
+SELECT livros.titulo, autores.nome
+FROM livros
+JOIN autores ON livros.autor_id = autores.id;
+}
