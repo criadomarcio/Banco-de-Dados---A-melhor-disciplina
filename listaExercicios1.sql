@@ -27,4 +27,11 @@ FROM vendas
 GROUP BY produto;
 }
 
+Questão 6 {
+SELECT autores.nome, COUNT(*) as num_livros
+FROM livros
+JOIN autores ON livros.autor_id = autores.id
+GROUP BY autores.nome;
+}
+
 
