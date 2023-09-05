@@ -78,3 +78,10 @@ SELECT autores.nome, livros.titulo
 FROM autores
 LEFT JOIN livros ON autores.id = livros.autor_id;
 }
+
+Questão 14 {
+SELECT cursos.nome, alunos.nome
+FROM cursos
+RIGHT JOIN matriculas ON cursos.id = matriculas.curso_id
+JOIN alunos ON matriculas.aluno_id = alunos.id;
+}
