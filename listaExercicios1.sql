@@ -126,3 +126,10 @@ LEFT JOIN livros ON autores.id = livros.autor_id
 LEFT JOIN livros_vendidos ON livros.id = livros_vendidos.livro_id
 GROUP BY autores.nome;
 }
+
+Questão 19 {
+SELECT alunos.nome, COUNT(matriculas.id) as num_matriculas
+FROM alunos
+LEFT JOIN matriculas ON alunos.id = matriculas.aluno_id
+GROUP BY alunos.nome;
+}
