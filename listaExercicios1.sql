@@ -133,3 +133,17 @@ FROM alunos
 LEFT JOIN matriculas ON alunos.id = matriculas.aluno_id
 GROUP BY alunos.nome;
 }
+
+Questão 20 {
+SELECT produto
+FROM vendas
+GROUP BY produto
+HAVING COUNT(*) = (
+    SELECT MAX(transacoes)
+    FROM (
+        SELECT COUNT(*) as transacoes
+        FROM vendas
+        GROUP BY produto
+    ) as subquery
+);
+}
