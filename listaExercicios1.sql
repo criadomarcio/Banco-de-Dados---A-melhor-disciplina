@@ -119,4 +119,10 @@ HAVING SUM(receita) = (
 );
 }
 
-q
+Questão 18 {
+SELECT autores.nome, SUM(livros_vendidos.quantidade * 20) as receita_total
+FROM autores
+LEFT JOIN livros ON autores.id = livros.autor_id
+LEFT JOIN livros_vendidos ON livros.id = livros_vendidos.livro_id
+GROUP BY autores.nome;
+}
