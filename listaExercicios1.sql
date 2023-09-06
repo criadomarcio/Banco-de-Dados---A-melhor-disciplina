@@ -147,3 +147,5 @@ HAVING COUNT(*) = (
     ) as subquery
 );
 }
+
+-- Renan Salvador de Santana 22C, trabalho concluido professor mike, tmj!
