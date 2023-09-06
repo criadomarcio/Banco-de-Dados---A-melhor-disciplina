@@ -104,3 +104,19 @@ WHERE id = (
     LIMIT 1
 );
 }
+
+Questão 17 {
+SELECT produto
+FROM vendas
+GROUP BY produto
+HAVING SUM(receita) = (
+    SELECT MIN(receita_total)
+    FROM (
+        SELECT SUM(receita) as receita_total
+        FROM vendas
+        GROUP BY produto
+    ) as subquery
+);
+}
+
+q
