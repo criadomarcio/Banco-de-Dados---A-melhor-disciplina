@@ -85,3 +85,10 @@ FROM cursos
 RIGHT JOIN matriculas ON cursos.id = matriculas.curso_id
 JOIN alunos ON matriculas.aluno_id = alunos.id;
 }
+
+Questão 15 {
+SELECT alunos.nome, cursos.nome
+FROM alunos
+INNER JOIN matriculas ON alunos.id = matriculas.aluno_id
+INNER JOIN cursos ON matriculas.curso_id = cursos.id;
+}
