@@ -143,3 +143,13 @@ BEGIN
     SELECT Nome, Sobrenome
     FROM Autor;
 END;
+
+-- Exercício 10: Livros e Seus Autores
+CREATE PROCEDURE sp_LivrosESeusAutores
+AS
+BEGIN
+    SELECT Livro.Titulo, Autor.Nome, Autor.Sobrenome
+    FROM Livro
+    INNER JOIN AutorLivro ON Livro.LivroID = AutorLivro.LivroID
+    INNER JOIN Autor ON AutorLivro.AutorID = Autor.AutorID;
+END;
