@@ -121,3 +121,25 @@ BEGIN
     FROM Autor
     ORDER BY DataNascimento ASC;
 END;
+
+-- Exercício 9: Documentação e Comentários
+
+-- Stored Procedure: sp_ListarAutores
+-- Descrição: Esta stored procedure lista todos os autores no banco de dados.
+-- Autor: [Renan Salvador de Santana]
+-- Data de Criação: [25/09]
+-- Última Modificação: [25/09]
+
+-- Parâmetros:
+-- Nenhum
+
+-- Retorno:
+-- A stored procedure não retorna resultados, mas imprime na saída os nomes e sobrenomes de todos os autores.
+
+CREATE PROCEDURE sp_ListarAutores
+AS
+BEGIN
+    -- Seleciona os nomes e sobrenomes de todos os autores
+    SELECT Nome, Sobrenome
+    FROM Autor;
+END;
