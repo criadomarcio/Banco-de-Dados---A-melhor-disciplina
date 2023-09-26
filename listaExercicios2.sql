@@ -112,3 +112,12 @@ BEGIN
         PRINT 'Erro:' + ERROR_MESSAGE();
     END CATCH
 END;
+
+-- Exercício 8: Autor Mais Antigo
+CREATE PROCEDURE sp_AutorMaisAntigo
+AS
+BEGIN
+    SELECT TOP 1 Nome, Sobrenome
+    FROM Autor
+    ORDER BY DataNascimento ASC;
+END;
