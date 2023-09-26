@@ -47,3 +47,13 @@ BEGIN
         PRINT 'A categoria não possui livros.';
     END
 END;
+
+-- Exercício 5: Listagem de Livros por Ano
+CREATE PROCEDURE sp_LivrosAteAno
+    @Ano INT
+AS
+BEGIN
+    SELECT Titulo
+    FROM Livro
+    WHERE AnoPublicacao <= @Ano;
+END;
