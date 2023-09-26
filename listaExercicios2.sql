@@ -84,3 +84,31 @@ BEGIN
     CLOSE livro_cursor;
     DEALLOCATE livro_cursor;
 END;
+
+-- Exercício 7: Adição de Livro com Tratamento de Erros
+CREATE PROCEDURE sp_AdicionarLivro
+    @Titulo NVARCHAR(255),
+    @AutorID INT,
+    @CategoriaID INT,
+    @AnoPublicacao INT
+AS
+BEGIN
+    BEGIN TRY
+        -- Verifica se o título do livro já existe
+        IF EXISTS (SELECT 1 FROM Livro WHERE Titulo = @Titulo)
+        BEGIN
+            RAISEERROR('Título já existe. O livro não foi adicionado.', 16, 1);
+            RETURN;
+        END
+
+        -- Insere o novo livro na tabela Livro
+        INSERT INTO Livro (Titulo, AutorID, CategoriaID, AnoPublicacao)
+        VALUES (@Titulo, @AutorID, @CategoriaID, @AnoPublicacao);
+
+        PRINT 'Livro adicionado com sucesso.';
+    END TRY
+    BEGIN CATCH
+        -- Captura e trata o erro
+        PRINT 'Erro:' + ERROR_MESSAGE();
+    END CATCH
+END;
