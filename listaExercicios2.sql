@@ -57,3 +57,30 @@ BEGIN
     FROM Livro
     WHERE AnoPublicacao <= @Ano;
 END;
+
+-- Exercício 6: Extração de Títulos por Categoria 
+CREATE PROCEDURE sp_TitulosPorCategoria
+    @CategoriaNome NVARCHAR(50)
+AS
+BEGIN
+    DECLARE @LivroTitulo NVARCHAR(255);
+
+    DECLARE livro_cursor CURSOR FOR
+    SELECT Livro.Titulo
+    FROM Livro
+    INNER JOIN Categoria ON Livro.CategoriaID = Categoria.CategoriaID
+    WHERE Categoria.Nome = @CategoriaNome;
+
+    OPEN livro_cursor;
+
+    FETCH NEXT FROM livro_cursor INTO @LivroTitulo;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        PRINT @LivroTitulo;
+        FETCH NEXT FROM livro_cursor INTO @LivroTitulo;
+    END;
+
+    CLOSE livro_cursor;
+    DEALLOCATE livro_cursor;
+END;
