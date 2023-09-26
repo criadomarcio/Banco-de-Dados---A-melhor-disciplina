@@ -27,3 +27,23 @@ BEGIN
     INNER JOIN Categoria ON Livro.CategoriaID = Categoria.CategoriaID
     WHERE Categoria.Nome = @CategoriaNome;
 END;
+
+-- Exercício 4: Verificação de Livros por Categoria
+CREATE PROCEDURE sp_VerificarLivrosCategoria
+    @CategoriaNome NVARCHAR(50)
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Livro
+        INNER JOIN Categoria ON Livro.CategoriaID = Categoria.CategoriaID
+        WHERE Categoria.Nome = @CategoriaNome
+    )
+    BEGIN
+        PRINT 'A categoria possui livros.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'A categoria não possui livros.';
+    END
+END;
