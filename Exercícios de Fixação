@@ -1,3 +1,4 @@
+String:
 a) Criar a tabela 'nomes' e inserir os nomes:
 CREATE TABLE nomes (
     nome VARCHAR(50)
@@ -8,3 +9,165 @@ INSERT INTO nomes (nome) VALUES
     ('Roberto'),
     ('Maria Clara'),
     ('João');
+
+b) Converter todos os nomes para maiúsculas usando UPPER():
+SELECT UPPER(nome) AS nome_maiusculo FROM nomes;
+
+c) Determinar o tamanho de cada nome usando LENGTH():
+SELECT nome, LENGTH(nome) AS tamanho_do_nome FROM nomes;
+
+d) Adicionar "Sr." e "Sra." usando CONCAT():
+SELECT 
+    CASE WHEN nome LIKE '%a%' THEN CONCAT('Sra. ', nome)
+         ELSE CONCAT('Sr. ', nome) 
+    END AS nome_com_tratamento
+FROM nomes;
+
+Funções Numéricas:
+a) Criar a tabela 'produtos' e inserir os produtos:
+CREATE TABLE produtos (
+    produto VARCHAR(50),
+    preco DECIMAL(10, 2),
+    quantidade INT
+);
+
+INSERT INTO produtos (produto, preco, quantidade) VALUES
+    ('Produto A', 10.50, 5),
+    ('Produto B', 15.75, 0),
+    ('Produto C', 8.99, -2);
+
+b) Arredondar os preços para 2 casas decimais usando ROUND():
+SELECT produto, ROUND(preco, 2) AS preco_arredondado FROM produtos;
+
+c) Exibir o valor absoluto das quantidades usando ABS():
+SELECT produto, ABS(quantidade) AS quantidade_absoluta FROM produtos;
+
+d) Calcular a média dos preços usando AVG():
+SELECT AVG(preco) AS media_precos FROM produtos;
+
+Funções de Data:
+a) Criar a tabela 'eventos' e inserir as datas:
+CREATE TABLE eventos (
+    data_evento DATE
+);
+
+INSERT INTO eventos (data_evento) VALUES
+    ('2023-10-02'),
+    ('2023-10-05'),
+    ('2023-09-28');
+
+b) Inserir a data e hora atual em uma nova linha usando NOW():
+INSERT INTO eventos (data_evento) VALUES (NOW());
+
+c) Calcular o número de dias entre duas datas usando DATEDIFF():
+SELECT DATEDIFF('2023-10-05', '2023-09-28') AS dias_entre_datas FROM eventos;
+
+d) Exibir o nome do dia da semana de cada evento usando DAYNAME():
+SELECT data_evento, DAYNAME(data_evento) AS dia_da_semana FROM eventos;
+
+Funções de Controle de Fluxo:
+a) Usar IF() para determinar o status do produto:
+SELECT 
+    produto,
+    CASE WHEN quantidade = 0 THEN 'Fora de estoque'
+         ELSE 'Em estoque' 
+    END AS status_estoque
+FROM produtos;
+
+b) Usar CASE para classificar os produtos em categorias de preço:
+SELECT 
+    produto,
+    CASE 
+        WHEN preco < 10.00 THEN 'Barato'
+        WHEN preco >= 10.00 AND preco < 20.00 THEN 'Médio'
+        ELSE 'Caro'
+    END AS categoria_preco
+FROM produtos;
+
+Função Personalizada:
+a) Criar uma função TOTAL_VALOR:
+DELIMITER //
+CREATE FUNCTION TOTAL_VALOR(preco DECIMAL(10, 2), quantidade INT)
+RETURNS DECIMAL(10, 2)
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+    SET total = preco * quantidade;
+    RETURN total;
+END;
+//
+DELIMITER ;
+
+b) Usar a função TOTAL_VALOR para calcular o valor total de cada item:
+SELECT produto, quantidade, TOTAL_VALOR(preco, quantidade) AS valor_total FROM produtos;
+
+Funções de Agregação:
+a) Contar o número total de produtos usando COUNT():
+SELECT COUNT(*) AS total_de_produtos FROM produtos;
+
+b) Determinar o produto mais caro usando MAX():
+SELECT produto, MAX(preco) AS produto_mais_caro FROM produtos;
+
+c) Determinar o produto mais barato usando MIN():
+SELECT produto, MIN(preco) AS produto_mais_barato FROM produtos;
+
+d) Calcular a soma total dos produtos em estoque usando SUM() e IF():
+SELECT SUM(IF(quantidade > 0, preco * quantidade, 0)) AS valor_total_em_estoque FROM produtos;
+
+Funções Personalizadas:
+a) Criar uma função para calcular o fatorial de um número:
+DELIMITER //
+CREATE FUNCTION CALCULAR_FATORIAL(numero INT)
+RETURNS INT
+BEGIN
+    DECLARE resultado INT;
+    SET resultado = 1;
+    WHILE numero > 0 DO
+        SET resultado = resultado * numero;
+        SET numero = numero - 1;
+    END WHILE;
+    RETURN resultado;
+END;
+//
+DELIMITER ;
+
+b) Calcular o fatorial de um número:
+SELECT CALCULAR_FATORIAL(5) AS fatorial_de_5;
+
+c) Criar uma função para calcular o exponencial de um número:
+DELIMITER //
+CREATE FUNCTION CALCULAR_EXPONENCIAL(base INT, expoente INT)
+RETURNS INT
+BEGIN
+    DECLARE resultado INT;
+    SET resultado = 1;
+    WHILE expoente > 0 DO
+        SET resultado = resultado * base;
+        SET expoente = expoente - 1;
+    END WHILE;
+    RETURN resultado;
+END;
+//
+DELIMITER ;
+
+d) Calcular o exponencial de um número:
+SELECT CALCULAR_EXPONENCIAL(2, 3) AS exponencial_de_2_ao_cubo;
+
+e) Criar uma função para verificar se uma palavra é um palíndromo ou não:
+DELIMITER //
+CREATE FUNCTION VERIFICAR_PALINDROMO(palavra VARCHAR(255))
+RETURNS INT
+BEGIN
+    DECLARE tamanho INT;
+    DECLARE i INT;
+    DECLARE reverso VARCHAR(255);
+    SET tamanho = LENGTH(palavra);
+    SET i = 1;
+    SET reverso = '';
+    WHILE i <= tamanho DO
+        SET reverso = CONCAT(SUBSTRING(palavra, i, 1), reverso);
+        SET i = i + 1;
+    END WHILE;
+    IF palavra = reverso THEN
+        RETURN 1; 
+    ELSE
+        RETURN 0;
